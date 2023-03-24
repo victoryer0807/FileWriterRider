@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -30,14 +31,24 @@ public class MainActivity extends AppCompatActivity {
            String text = textBox.getText().toString();
            fos = openFileOutput(FILE_NAME, MODE_PRIVATE);
            fos.write(text.getBytes());
+           Toast.makeText(this, "Фаил успешно сохранен", Toast.LENGTH_LONG).show();
        } catch (FileNotFoundException e){
            e.printStackTrace();
        } catch (IOException e) {
            e.printStackTrace();
+           Toast.makeText(this, e.getMessage(), Toast.LENGTH_SHORT).show();
+       }finally {
+           try {
+               if (fos != null) {
+                   fos.close();
+               }
+           } catch (IOException e) {
+               e.printStackTrace();
+               Toast.makeText(this, e.getMessage(), Toast.LENGTH_LONG).show();
+           }
        }
-
    }
-
+//открытие файла
 
 
 }
